@@ -1,0 +1,5 @@
+<map id="ECS::EntityManager::ReceiveEvent" name="ECS::EntityManager::ReceiveEvent">
+<area shape="rect" id="node2" href="$class_e_c_s_1_1_entity_manager.html#a3fbcf8f9f553065ec71a4eba5f273316" title="Checks if an entity of type C that has the given id exists. " alt="" coords="196,39,339,80"/>
+<area shape="rect" id="node3" href="$class_e_c_s_1_1_entity_manager.html#a6a3e41d0a2216bf0cccc0d6962e7d905" title="Removed the given entity from the manager. " alt="" coords="387,5,529,47"/>
+<area shape="rect" id="node4" href="$class_e_c_s_1_1_entity_manager.html#a409e865fa35d60d5a0365bdcd6f813e9" title="Get the Entity object from its id. " alt="" coords="387,71,529,112"/>
+</map>

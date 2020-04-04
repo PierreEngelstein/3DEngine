@@ -1,0 +1,4 @@
+<map id="ECS::ComponentManager::DestroyComponent" name="ECS::ComponentManager::DestroyComponent">
+<area shape="rect" id="node2" href="$class_e_c_s_1_1_component_manager.html#af6ef12724c88f19cae5bc67a5b7fa756" title="Receives an event from the EventManager. " alt="" coords="228,5,403,47"/>
+<area shape="rect" id="node3" href="$class_e_c_s_1_1_component_manager.html#a4587b44e11babbc2ebc729cba6645881" title="Checks if the entity has the component requested. " alt="" coords="451,35,625,76"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="ECS::EntityManager::HasEntity" name="ECS::EntityManager::HasEntity">
+<area shape="rect" id="node2" href="$class_e_c_s_1_1_entity_manager.html#a6a3e41d0a2216bf0cccc0d6962e7d905" title="Removed the given entity from the manager. " alt="" coords="196,5,339,47"/>
+<area shape="rect" id="node3" href="$class_e_c_s_1_1_entity_manager.html#a409e865fa35d60d5a0365bdcd6f813e9" title="Get the Entity object from its id. " alt="" coords="196,71,339,112"/>
+</map>

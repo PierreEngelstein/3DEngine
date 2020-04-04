@@ -1,0 +1,4 @@
+<map id="ECS::SystemManager::AddDependency" name="ECS::SystemManager::AddDependency">
+<area shape="rect" id="node2" href="$class_e_c_s_1_1_system_manager.html#a21cea5fde7355ae936b941ec13639611" title="Runs a topological sorting algorithm (deep&#45;first) to get the order of execution of the systems..." alt="" coords="207,5,360,47"/>
+<area shape="rect" id="node3" href="$class_e_c_s_1_1_system_manager.html#a525337935a2fc084286eec3b0f00b10d" title="Checks if the the System C exists. " alt="" coords="408,5,561,47"/>
+</map>

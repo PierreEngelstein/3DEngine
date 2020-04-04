@@ -1,0 +1,5 @@
+<map id="Event::IEventListener" name="Event::IEventListener">
+<area shape="rect" id="node2" href="$class_e_c_s_1_1_component_manager.html" title="Manages all the components in the program. " alt="" coords="5,80,180,107"/>
+<area shape="rect" id="node3" href="$class_e_c_s_1_1_entity_manager.html" title="Stores all the entities of the game. " alt="" coords="204,80,347,107"/>
+<area shape="rect" id="node4" href="$class_e_c_s_1_1_system_manager.html" title="Manages the systems of the game. " alt="" coords="371,80,524,107"/>
+</map>

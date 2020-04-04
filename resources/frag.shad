@@ -1,0 +1,11 @@
+#version 460
+
+smooth in vec2 outTexture;
+uniform sampler2D texture_sampler;
+
+out vec4 outputColor;
+
+void main()
+{
+        outputColor = texture(texture_sampler, outTexture);
+}

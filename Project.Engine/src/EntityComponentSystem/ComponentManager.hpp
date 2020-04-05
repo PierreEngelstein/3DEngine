@@ -96,7 +96,6 @@ namespace ECS
              */
             virtual void ReceiveEvent(Event::IEvent* event) override;
         private:
-            std::map<const std::type_info*, IComponent*> m_components;
             std::map<EntityID, std::map<const std::type_info*, IComponent*>> m_entity_component_lookup_table;
 
             /**

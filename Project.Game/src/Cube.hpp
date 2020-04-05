@@ -4,12 +4,14 @@
 #include <glm/glm.hpp>
 #define NDEBUG
 #include "PxPhysicsAPI.h"
+#include <Graphics/MaterialComponent.hpp>
+#include <Graphics/MeshComponent.hpp>
+#include <Common/IShader.hpp>
+#include <Common/ITexture.hpp>
+#include "Types.hpp"
 
 class Cube
 {
-    private:
-        unsigned int vao, vertexBuffer, textureBuffer, indexBuffer, shader;
-        int modelUniform, projectionUniform, textureUniform, viewUniform;
     public:
         Cube(physx::PxPhysics *mPhysics, bool isStatic = false);
         Cube(physx::PxPhysics *mPhysics, bool isStatic, glm::vec3 position);
@@ -17,11 +19,7 @@ class Cube
         ~Cube();
         void Draw(glm::mat4 view, glm::mat4 projection);
 
-        glm::vec3 angle;
-        glm::vec3 position;
-
-        static std::vector<glm::vec3> verticesSquare;
-        static std::vector<glm::vec2> textCoordSquare;
-        static std::vector<unsigned int> indicesSquare;
         physx::PxRigidActor *mActor;
+
+        EntityID m_id;
 };

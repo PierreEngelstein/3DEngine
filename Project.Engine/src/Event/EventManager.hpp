@@ -6,6 +6,11 @@ namespace Event
 {
     class IEventListener;
     class IEvent;
+
+    /**
+     * @brief Manages the events in the game.
+     * 
+     */
     class EventManager
     {
         public:

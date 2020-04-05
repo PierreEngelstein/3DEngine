@@ -9,6 +9,8 @@ namespace ECS
      */
     class IComponent
     {
-
+        public:
+            IComponent(){}
+            virtual ~IComponent(){}
     };
 }

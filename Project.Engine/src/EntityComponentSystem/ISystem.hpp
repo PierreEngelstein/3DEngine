@@ -15,6 +15,7 @@ namespace ECS
              * 
              */
             ISystem() : mask(SYSTEM_MASK_UNMARKED){}
+            virtual ~ISystem(){}
 
             /**
              * @brief Get the mask of the system.

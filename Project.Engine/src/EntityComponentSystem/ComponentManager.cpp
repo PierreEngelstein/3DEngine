@@ -22,9 +22,12 @@ namespace ECS
         {
             for(auto &itr2 : itr.second)
             {
+                std::cout << "Deleting component !\n";
                 delete (itr2.second);
             }
+            itr.second.clear();
         }
+        m_entity_component_lookup_table.clear();
     }
 
     void ComponentManager::ReceiveEvent(Event::IEvent* event)

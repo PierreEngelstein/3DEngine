@@ -1,5 +1,11 @@
 #include "GL/glew.h"
-#include <GLFW/glfw3.h>
+
+#include <Core/GLWindow.hpp>
+#include <Core/GameEngine.hpp>
+#include <Graphics/GLRenderer.hpp>
+#include <EntityComponentSystem/ECSEngine.hpp>
+#include <EntityComponentSystem/IEntity.hpp>
+
 #include <iostream>
 #include <string>
 #include <sstream>
@@ -11,81 +17,18 @@
 #define NDEBUG
 #include "PxPhysicsAPI.h"
 
-int win_width = 800, win_height = 600;
 using namespace physx;
-
-void error_callback(int error, const char *desc)
-{
-        std::cerr << "GLFW error : " << desc << "\n";
-        return;
-}
-void resizeCallback(GLFWwindow *win, int _width, int _height)
-{
-        win_width = _width;
-        win_height = _height;
-}
 
 int main()
 {
-#pragma region GLFW Initialisation
+        ecsengine.GetEntityManager().CreateEntity<ECS::IEntity>();
         std::cout << "Hello World\n";
-        if(!glfwInit())
-        {
-                std::cerr << "Failed to init GLFW\n";
-                return -1;
-        }
-        glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
-        glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
-        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-        glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GLFW_TRUE);
 
-        GLFWwindow *window = glfwCreateWindow(win_width, win_height, "Window", nullptr, nullptr);
-        glfwSetErrorCallback(error_callback);
-        glfwSetWindowSizeCallback(window, resizeCallback);
+        Common::IWindow* window = new Core::GLWindow(800, 600, "Window");
+        Common::IRenderer* renderer = new Graphics::GLRenderer();
+        Common::IEngine* engine = new Core::GameEngine(window, renderer);
 
-        glfwMakeContextCurrent(window);
-        glfwShowWindow(window);
-        glfwSwapInterval(1);
-#pragma endregion
-
-#pragma region OpenGL & GLEW init
-        glEnable(GL_DEPTH_TEST);
-        glEnable(GL_BLEND);
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-        if(glewInit() != GLEW_OK)
-        {
-                std::cerr << "Failed to init glew !\n";
-                return -1;
-        }
-        if(!GLEW_VERSION_3_0)
-        {
-                std::cerr << "No correct glew version!\n";
-                return -1;
-        }
-#pragma endregion
-
-#pragma region Texture
-        std::vector<unsigned char> data;
-        unsigned width, height;
-        unsigned error = lodepng::decode(data, width, height, "resources/Untitled.png");
-        if(error)
-        {
-                std::cerr << "Failed to open image file Untitled.png: " << lodepng_error_text(error);
-                return -1;
-        }
-        GLuint texture;
-        glGenTextures(1, &texture);
-        glEnable(GL_TEXTURE_2D);
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, texture);
-        glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, &data[0]);
-        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-        glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-#pragma endregion
+        engine->Init();
 
         // Setup PhysX
         static physx::PxDefaultAllocator gDefaultAllocator;
@@ -139,44 +82,36 @@ int main()
         mScene->addActor(*cube1.mActor);
 
         /** Main game loop **/
-        while(!glfwWindowShouldClose(window))
+        while(window->IsRunning())
         {
                 float mStepSize = 1.0f/60.0f;
                 mScene->simulate(mStepSize);
                 mScene->fetchResults(true);
 
-                // Update OpenGL
-                glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-                glClearColor(0.17578125f, 0.17578125f, 0.17578125f, 0.0f);
-                glViewport(0, 0, win_width, win_height);
-                // Tell OpenGL to use this texture
-                glEnable(GL_TEXTURE_2D);
-                glActiveTexture(GL_TEXTURE0);
-                glBindTexture(GL_TEXTURE_2D, texture);
+                engine->OnFrameStart();
 
                 glm::mat4 view = glm::mat4(1.0f);
                 view = glm::translate(view, glm::vec3(0.0f, -1.0f, -6.0f));
                 view = glm::rotate(view, 20.0f, glm::vec3(-1.0f, 0.0f, 0.0f));
 
                 // Build the projection matrix
-                glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)win_width/(float)win_height, 0.1f, 100.0f);
+                glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)window->Width()/(float)window->Height(), 0.1f, 100.0f);
 
                 my_cube.Draw(view, projection);
                 cube1.Draw(view, projection);
+                
+                engine->OnFrameEnd();
 
-                // Updates everything needed in the window
-                glfwSwapBuffers(window);
-                glfwPollEvents();
         }
+        mCpuDispatcher->release();
         PxCloseExtensions();
         transport->release();
         mPvd->release();
         mPhysics->release();
         mFoundation->release();
 
-#pragma region GLFW Clear
         glUseProgram(0);
-        glfwDestroyWindow(window);
-        glfwTerminate();
-#pragma endregion
+        delete window;
+        delete renderer;
+        delete engine;
 }

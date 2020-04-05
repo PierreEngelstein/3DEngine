@@ -16,6 +16,7 @@ namespace ECS
              * @param id : The id generated from the EntityManager.
              */
             IEntity(EntityID id) : m_id(id){}
+            virtual ~IEntity(){}
         private:
             /**
              * @brief The entity id generated from the EntityManager.

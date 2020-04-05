@@ -10,9 +10,9 @@ namespace ECS
 
     SystemManager::~SystemManager()
     {
-        for(auto i : m_running_list)
+        for(auto i : m_systems)
         {
-            delete(i);
+            delete i.second;
         }
         m_running_list.clear();
         m_systems.clear();

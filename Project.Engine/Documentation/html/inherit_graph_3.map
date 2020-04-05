@@ -1,3 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$class_e_c_s_1_1_i_system.html" title="The base system class. " alt="" coords="5,5,112,32"/>
+<area shape="rect" id="node1" href="$class_common_1_1_i_window.html" title="Base interface to expose windowing functionalities to the engine. " alt="" coords="5,5,140,32"/>
+<area shape="rect" id="node2" href="$class_core_1_1_g_l_window.html" title="IWindow implementation for OpenGL. " alt="" coords="188,5,311,32"/>
 </map>

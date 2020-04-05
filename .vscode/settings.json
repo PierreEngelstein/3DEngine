@@ -52,7 +52,19 @@
         "set": "cpp",
         "cfenv": "cpp",
         "list": "cpp",
-        "cassert": "cpp"
+        "cassert": "cpp",
+        "csignal": "cpp",
+        "strstream": "cpp",
+        "bitset": "cpp",
+        "chrono": "cpp",
+        "complex": "cpp",
+        "condition_variable": "cpp",
+        "ratio": "cpp",
+        "mutex": "cpp",
+        "thread": "cpp",
+        "typeindex": "cpp",
+        "variant": "cpp"
     },
-    "C_Cpp.default.configurationProvider": "vector-of-bool.cmake-tools"
+    "C_Cpp.default.configurationProvider": "vector-of-bool.cmake-tools",
+    "C_Cpp.errorSquiggles": "Enabled"
 }

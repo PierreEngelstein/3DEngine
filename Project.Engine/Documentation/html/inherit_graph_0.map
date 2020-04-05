@@ -1,3 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$class_e_c_s_1_1_edge.html" title="The edge class, used by the SystemManager to order system execution. " alt="" coords="5,5,93,32"/>
+<area shape="rect" id="node1" href="$class_common_1_1_i_engine.html" title="Base engine interface. " alt="" coords="5,5,132,32"/>
+<area shape="rect" id="node2" href="$class_core_1_1_game_engine.html" title="Core::GameEngine" alt="" coords="180,5,313,32"/>
 </map>

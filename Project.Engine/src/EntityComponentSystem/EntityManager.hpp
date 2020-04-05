@@ -3,6 +3,7 @@
 
 #include "Types.hpp"
 #include <iostream>
+#include <functional>
 #include "Event/IEventListener.hpp"
 
 namespace ECS
@@ -78,6 +79,8 @@ namespace ECS
              * @param event : The event received.
              */
             virtual void ReceiveEvent(Event::IEvent* event) override;
+
+            void Foreach(const std::function<void(EntityID)>& __foreach__);
             
         private:
             /**

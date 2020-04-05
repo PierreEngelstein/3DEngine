@@ -1,11 +1,13 @@
 #include <EntityComponentSystem/ECSEngine.hpp>
 #include <Graphics/GraphicSystem.hpp>
+#include <Physics/PhysicsSystem.hpp>
 
 namespace ECS
 {
     ECSEngine::ECSEngine()
     {
         m_system_manager.AddSystem<Graphics::GraphicsSystem>();
+        m_system_manager.AddSystem<Physics::PhysicsSystem>();
     }
 
     ECSEngine::~ECSEngine()

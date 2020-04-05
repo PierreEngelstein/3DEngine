@@ -82,4 +82,16 @@ namespace ECS
                 break;
         }
     }
+
+    void EntityManager::Foreach(const std::function<void(EntityID)>& __foreach__)
+    {
+        for(auto& i : m_entities)
+        {
+            for(auto& j : i.second )
+            {
+                __foreach__(j.first);
+            }
+        }
+        
+    }
 }

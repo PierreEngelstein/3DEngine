@@ -7,7 +7,7 @@ namespace Core
     class GameEngine : public Common::IEngine
     {
         public:
-            GameEngine(Common::IWindow* win, Common::IRenderer* rend);
+            GameEngine(Common::IWindow* win);
             ~GameEngine();
 
             virtual bool Init() override;
@@ -22,10 +22,8 @@ namespace Core
 
             virtual Common::IWindow* GetWindow() const override;
 
-            virtual Common::IRenderer* GetRenderer() const override;
         
         private:
             Common::IWindow*    m_window;
-            Common::IRenderer*  m_renderer;
     };
 }

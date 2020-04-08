@@ -82,6 +82,11 @@ namespace Physics
         float mStepSize = 1.0f/60.0f;
         m_scene->simulate(mStepSize);
         m_scene->fetchResults(true);
+
+        ecsengine.GetEntityManager().Foreach([&](EntityID id)
+        {
+            UpdateTransformFromSimulation(id);
+        });
     }
 
     void PhysicsSystem::LastRun()

@@ -5,11 +5,16 @@
 #include "Types.hpp"
 #include "glm/glm.hpp"
 
+namespace Common
+{
+    class IWindow;
+}
 namespace Graphics
 {
     class GraphicsSystem : public ECS::ISystem
     {
         public:
+            GraphicsSystem(Common::IWindow* win);
             /** Generates the full vertex array for the wanted entity. */
             void GenerateVertexArray(EntityID id);
             
@@ -29,5 +34,6 @@ namespace Graphics
             static std::vector<glm::vec3> verticesSquare;
             static std::vector<glm::vec2> textCoordSquare;
             static std::vector<unsigned int> indicesSquare;
+            Common::IWindow *m_win;
     };
 }

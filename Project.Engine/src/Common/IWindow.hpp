@@ -40,11 +40,15 @@ namespace Common
 			 */
 			virtual int Width() const = 0;
 
+			virtual int& WidthRef() = 0;
+
 			/**
 			 * @brief Gets the current window height.
 			 * 
 			 */
 			virtual int Height() const = 0;
+
+			virtual int& HeightRef()  = 0;
 
 			/**
 			 * @brief Checks if the keyboard key is pressed.

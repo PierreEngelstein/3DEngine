@@ -3,6 +3,7 @@
 #include <Graphics/MeshComponent.hpp>
 #include <Graphics/MaterialComponent.hpp>
 #include <Core/TransformComponent.hpp>
+#include <Common/IWindow.hpp>
 #include "GL/glew.h"
 #include "glm/gtc/matrix_transform.hpp"
 #include "glm/gtc/type_ptr.hpp"
@@ -85,6 +86,24 @@ std::vector<unsigned int> Graphics::GraphicsSystem::indicesSquare =
 };
 namespace Graphics
 {
+	GraphicsSystem::GraphicsSystem(Common::IWindow* win) : m_win(win)
+	{
+		glEnable(GL_DEPTH_TEST);
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+        if(glewInit() != GLEW_OK)
+        {
+			std::cerr << "Failed to init glew !\n";
+			return;
+        }
+        if(!GLEW_VERSION_3_0)
+        {
+			std::cerr << "No correct glew version!\n";
+			return;
+        }
+	}
+
     void GraphicsSystem::FirstRun()
     {
 
@@ -92,7 +111,30 @@ namespace Graphics
 
     void GraphicsSystem::Run()
     {
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        glClearColor(0.17578125f, 0.17578125f, 0.17578125f, 0.0f);
+        glViewport(0, 0, m_win->Width(), m_win->Height());
+		
+		std::cout << "w=" << m_win->Width() << "\n";
+		std::cout << "h=" << m_win->Height() << "\n";
+        Graphics::GraphicsSystem *graphics = ecsengine.GetSystemManager().GetSystem<Graphics::GraphicsSystem>();
+		if(graphics == nullptr) return;
 
+		auto tr = ecsengine.GetComponentManager().GetComponent<Core::TransformComponent>(GetCameraID());
+
+		glm::mat4 view = glm::mat4(1.0f);
+
+		view = glm::rotate(view, tr->m_rotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
+		view = glm::rotate(view, tr->m_rotation.y, glm::vec3(0.0f, 1.0f, 0.0f));
+		view = glm::rotate(view, tr->m_rotation.z, glm::vec3(0.0f, 0.0f, 1.0f));
+		view = glm::translate(view, tr->m_position);
+
+		glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)m_win->Width()/(float)m_win->Height(), 0.1f, 100.0f);
+
+        ecsengine.GetEntityManager().Foreach([&](EntityID id)
+        {
+            graphics->DrawEntity(id, view, projection);
+        });
     }
 
     void GraphicsSystem::LastRun()

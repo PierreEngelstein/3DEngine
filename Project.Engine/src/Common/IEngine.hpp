@@ -2,7 +2,6 @@
 
 #include <Types.hpp>
 #include <Common/IWindow.hpp>
-#include <Common/IRenderer.hpp>
 
 namespace Common
 {
@@ -32,7 +31,5 @@ namespace Common
             /** Gets the current window in use by the engine. */
             virtual IWindow* GetWindow() const = 0;
 
-            /** Gets the current renderer in use by the engine. */
-            virtual IRenderer* GetRenderer() const = 0;
     };
 }

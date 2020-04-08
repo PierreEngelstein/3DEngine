@@ -69,6 +69,15 @@ namespace Core
                 return this->height;
         }
 
+        int& GLWindow::WidthRef()
+        {
+                return width;
+        }
+        int& GLWindow::HeightRef()
+        {
+                return height;
+        }
+
         bool GLWindow::KeyPressed(int key) const
         {
                 return glfwGetKey(this->window, key) == GLFW_PRESS;

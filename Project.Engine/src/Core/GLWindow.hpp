@@ -26,6 +26,9 @@ namespace Core
                         int Width() const override;
                         int Height() const override;
 
+                        int& WidthRef() override;
+                        int& HeightRef() override;
+
                         bool KeyPressed(int key) const override;
                         bool KeyReleased(int key) const override;
 

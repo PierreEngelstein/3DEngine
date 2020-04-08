@@ -12,3 +12,5 @@ typedef unsigned int CallbackType;
 #define SYSTEM_MASK_PERM 2
 
 #define _CALLBACK(a) reinterpret_cast<void *>(a)
+
+EntityID GetCameraID();

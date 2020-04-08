@@ -13,6 +13,7 @@
 #include <EntityComponentSystem/ECSEngine.hpp>
 #include <EntityComponentSystem/IEntity.hpp>
 #include <Core/TransformComponent.hpp>
+#include <Core/ScriptingSystem.hpp>
 
 #include <Physics/PhysicsSystem.hpp>
 

@@ -25,7 +25,8 @@ int main()
         engine->Init();
 
         Cube my_cube( true, glm::vec3(0.0f, 0.0f, 0.0f));
-        Cube cube1( false, glm::vec3(0.7f, 3.0f, 0.7f));
+        Cube cube1( false, glm::vec3(0.7f, 4.0f, 0.7f));
+        Cube cube2( false, glm::vec3(0.3f, 2.0f, 0.5f));
 
         Physics::PhysicsSystem *phys = ecsengine.GetSystemManager().GetSystem<Physics::PhysicsSystem>();
         assert(phys != nullptr);

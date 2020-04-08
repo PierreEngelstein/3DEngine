@@ -8,5 +8,6 @@ var searchData=
   ['irenderer',['IRenderer',['../class_common_1_1_i_renderer.html',1,'Common']]],
   ['ishader',['IShader',['../class_common_1_1_i_shader.html',1,'Common']]],
   ['isystem',['ISystem',['../class_e_c_s_1_1_i_system.html',1,'ECS']]],
+  ['itexture',['ITexture',['../class_common_1_1_i_texture.html',1,'Common']]],
   ['iwindow',['IWindow',['../class_common_1_1_i_window.html',1,'Common']]]
 ];

@@ -10,5 +10,6 @@ var searchData=
   ['ishader',['IShader',['../class_common_1_1_i_shader.html',1,'Common']]],
   ['isrunning',['IsRunning',['../class_common_1_1_i_window.html#acc47aa58a6e7f51d7a7537266e88c7fa',1,'Common::IWindow::IsRunning()'],['../class_core_1_1_g_l_window.html#aecacc56731065889b04eec54ef6f4839',1,'Core::GLWindow::IsRunning()']]],
   ['isystem',['ISystem',['../class_e_c_s_1_1_i_system.html',1,'ECS::ISystem'],['../class_e_c_s_1_1_i_system.html#af8a38c7a5ffba24bd113db7427e5ca59',1,'ECS::ISystem::ISystem()']]],
+  ['itexture',['ITexture',['../class_common_1_1_i_texture.html',1,'Common']]],
   ['iwindow',['IWindow',['../class_common_1_1_i_window.html',1,'Common::IWindow'],['../class_common_1_1_i_window.html#a22a7d4ea10724ed312a42d36e6ad43e3',1,'Common::IWindow::IWindow()']]]
 ];

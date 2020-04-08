@@ -1,0 +1,5 @@
+<map id="Graphics::MaterialComponent" name="Graphics::MaterialComponent">
+<area shape="rect" id="node2" href="$class_e_c_s_1_1_i_component.html" title="The base class for all components. " alt="" coords="5,5,135,32"/>
+<area shape="rect" id="node3" href="$class_common_1_1_i_texture.html" title="Base texture interface. " alt="" coords="159,5,290,32"/>
+<area shape="rect" id="node4" href="$class_common_1_1_i_shader.html" title="Base shader interface. " alt="" coords="314,5,442,32"/>
+</map>

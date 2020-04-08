@@ -7,8 +7,8 @@ namespace Common
 {
     enum ShaderType
     {
-        VERTEX = 1,
-        FRAGMENT = 2
+        VERTEX = 1, // Vertex shader
+        FRAGMENT = 2 // Fragment shader
     };
     
     /**

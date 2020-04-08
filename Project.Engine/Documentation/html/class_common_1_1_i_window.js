@@ -1,6 +1,7 @@
 var class_common_1_1_i_window =
 [
     [ "IWindow", "class_common_1_1_i_window.html#a22a7d4ea10724ed312a42d36e6ad43e3", null ],
+    [ "~IWindow", "class_common_1_1_i_window.html#a485e87050f750da249959f52ccc76e70", null ],
     [ "Height", "class_common_1_1_i_window.html#ac8a112afdc8a2342fa7a8fb3075bfb43", null ],
     [ "IsRunning", "class_common_1_1_i_window.html#acc47aa58a6e7f51d7a7537266e88c7fa", null ],
     [ "KeyPressed", "class_common_1_1_i_window.html#a55b644b81ef90f6a5828dfed29e985b2", null ],

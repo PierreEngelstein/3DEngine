@@ -99,12 +99,16 @@ namespace Physics
         Core::TransformComponent* transform = ecsengine.GetComponentManager().GetComponent<Core::TransformComponent>(id);
         if(transform == nullptr) return;
 
+        // Physics material parameters
         physx::PxReal density = 1.0f;
-
+        physx::PxReal staticFriction = 0.5f;
+        physx::PxReal dynamicFriction = 0.5f;
+        physx::PxReal restitution = 0.5f;
+        
         physx::PxVec3 dimensions(0.5f, 0.5f, 0.5f);
         physx::PxBoxGeometry geometry(dimensions);
 
-        physx::PxMaterial *mMaterial = m_physics->createMaterial(0.5f, 0.5f, 0.6f);
+        physx::PxMaterial *mMaterial = m_physics->createMaterial(staticFriction, dynamicFriction, restitution);
         physx::PxShape *shape = m_physics->createShape(physx::PxBoxGeometry(dimensions), *mMaterial);
         physx::PxTransform m_transform(physx::PxVec3(transform->m_position.x, transform->m_position.y, transform->m_position.z));
 

@@ -12,7 +12,14 @@ namespace Graphics
         public:
             /** Generates the full vertex array for the wanted entity. */
             void GenerateVertexArray(EntityID id);
-
+            
+            /**
+             * @brief Draws the entity on screen
+             * 
+             * @param id : The ID of the entity to be rendered.
+             * @param view : The view matrix.
+             * @param projection : The projection matrix.
+             */
             void DrawEntity(EntityID id, glm::mat4 view, glm::mat4 projection);
 
             virtual void FirstRun() override;

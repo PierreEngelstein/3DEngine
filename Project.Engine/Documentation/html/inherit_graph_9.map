@@ -1,4 +1,5 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$class_event_1_1_i_event.html" title="Base interface for events. " alt="" coords="5,5,108,32"/>
-<area shape="rect" id="node2" href="$class_event_1_1_event_entity_deleted.html" title="Event fired when an entity has been removed from the EntityManager. " alt="" coords="156,5,333,32"/>
+<area shape="rect" id="node1" href="$class_e_c_s_1_1_i_system.html" title="The base system class. " alt="" coords="5,31,112,57"/>
+<area shape="rect" id="node2" href="$class_graphics_1_1_graphics_system.html" title="Graphics::GraphicsSystem" alt="" coords="160,5,339,32"/>
+<area shape="rect" id="node3" href="$class_physics_1_1_physics_system.html" title="The physics system. " alt="" coords="165,56,334,83"/>
 </map>

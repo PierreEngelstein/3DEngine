@@ -1,5 +1,6 @@
 var class_common_1_1_i_renderer =
 [
+    [ "~IRenderer", "class_common_1_1_i_renderer.html#ad0ab7f84e589c443b3c407e2ea3c919b", null ],
     [ "AddDebugMesh", "class_common_1_1_i_renderer.html#a6f1d03f605e2bb1fe76cb7edcc165b06", null ],
     [ "DrawDebug", "class_common_1_1_i_renderer.html#a971a618fb3c7dbdcc0934fb0c6484dba", null ],
     [ "Init", "class_common_1_1_i_renderer.html#a1aa61d68c96ef07e037189bfcd192cc7", null ],

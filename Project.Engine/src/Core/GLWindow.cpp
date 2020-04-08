@@ -2,6 +2,7 @@
 #include "GLFW/glfw3.h"
 #include "GLWindow.hpp"
 #include <iostream>
+#include <Logging/Logger.hpp>
 
 namespace Core
 {
@@ -13,7 +14,7 @@ namespace Core
 
                 if(!glfwInit())
                 {
-                        std::cerr << "Failed to initialize glfw !\n";
+                        LOG(GLWindow, Logging::Error, "Failed to initialize glfw !\n");
                         return;
                 }
 
@@ -36,12 +37,12 @@ namespace Core
                 glfwShowWindow(window);
                 glfwSwapInterval(1);
 
-                std::cout << "initialized window using" << glfwGetVersionString() << "\n";
+                LOG(GLWindow, Logging::Info, "Initialized window using %s\n", glfwGetVersionString());
         }
 
         GLWindow::~GLWindow()
         {
-                std::cout << "Closed window.\n";
+                LOG(GLWindow, Logging::Info, "Closed window.\n");
                 glfwDestroyWindow(window);
                 glfwTerminate();
         }
@@ -91,6 +92,7 @@ namespace Core
         
         void GLWindow::error_callback(int error, const char *description)
         {
+                LOG(GLWindow, Logging::Error, "glfw error : %s\n", description);
                 std::cerr << "glfw error : " << description << "\n";
                 return;
         }
@@ -110,15 +112,15 @@ namespace Core
                 {
                         case CALLBACK_CHARACTER:
                                 glfwSetCharCallback(this->window, (GLFWcharfun)callback);
-                                std::cout << "Added character callback\n";
+                                LOG(GLWindow, Logging::Info, "Added character callback\n");
                                 break;
                         case CALLBACK_KEY:
                                 glfwSetKeyCallback(this->window, (GLFWkeyfun)callback);
-                                std::cout << "Added key callback\n";
+                                LOG(GLWindow, Logging::Info, "Added key callback\n");
                                 break;
                         case CALLBACK_CURSOR:
                                 glfwSetCursorPosCallback(this->window, (GLFWcursorposfun)callback);
-                                std::cout << "Added cursor callback\n";
+                                LOG(GLWindow, Logging::Info, "Added cursor callback\n");
                                 break;
                         default:
                                 break;

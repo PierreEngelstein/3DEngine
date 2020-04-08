@@ -22,8 +22,11 @@ namespace ECS
             /** Get the singleton instance. */
             static ECSEngine& Get();
 
+            /** Gets the component manager. */
             ComponentManager& GetComponentManager();
+            /** Gets the entity manager. */
             EntityManager&    GetEntityManager();
+            /** Gets the system manager. */
             SystemManager&    GetSystemManager();
         
         private:

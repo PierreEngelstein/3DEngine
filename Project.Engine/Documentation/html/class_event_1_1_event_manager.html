@@ -95,16 +95,85 @@ $(document).ready(function(){initNavTree('class_event_1_1_event_manager.html',''
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:aac299b6a113b57b1949a25c656ccec78"><td class="memItemLeft" align="right" valign="top"><a id="aac299b6a113b57b1949a25c656ccec78"></a>
-static void&#160;</td><td class="memItemRight" valign="bottom"><b>AddListener</b> (<a class="el" href="class_event_1_1_i_event_listener.html">IEventListener</a> *listener)</td></tr>
+<tr class="memitem:aac299b6a113b57b1949a25c656ccec78"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_event_1_1_event_manager.html#aac299b6a113b57b1949a25c656ccec78">AddListener</a> (<a class="el" href="class_event_1_1_i_event_listener.html">IEventListener</a> *listener)</td></tr>
+<tr class="memdesc:aac299b6a113b57b1949a25c656ccec78"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a listener to be notified on events.  <a href="#aac299b6a113b57b1949a25c656ccec78">More...</a><br /></td></tr>
 <tr class="separator:aac299b6a113b57b1949a25c656ccec78"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a671714d009002969cecedc91e07618ed"><td class="memItemLeft" align="right" valign="top"><a id="a671714d009002969cecedc91e07618ed"></a>
-static void&#160;</td><td class="memItemRight" valign="bottom"><b>SendEvent</b> (<a class="el" href="class_event_1_1_i_event.html">IEvent</a> *event)</td></tr>
+<tr class="memitem:a671714d009002969cecedc91e07618ed"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_event_1_1_event_manager.html#a671714d009002969cecedc91e07618ed">SendEvent</a> (<a class="el" href="class_event_1_1_i_event.html">IEvent</a> *event)</td></tr>
+<tr class="memdesc:a671714d009002969cecedc91e07618ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends an event to the listeners.  <a href="#a671714d009002969cecedc91e07618ed">More...</a><br /></td></tr>
 <tr class="separator:a671714d009002969cecedc91e07618ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Manages the events in the game. </p>
-</div><hr/>The documentation for this class was generated from the following files:<ul>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="aac299b6a113b57b1949a25c656ccec78"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aac299b6a113b57b1949a25c656ccec78">&#9670;&nbsp;</a></span>AddListener()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Event::EventManager::AddListener </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_event_1_1_i_event_listener.html">IEventListener</a> *&#160;</td>
+          <td class="paramname"><em>listener</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Adds a listener to be notified on events. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">listener</td><td>: The listener to be added </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a671714d009002969cecedc91e07618ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a671714d009002969cecedc91e07618ed">&#9670;&nbsp;</a></span>SendEvent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Event::EventManager::SendEvent </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_event_1_1_i_event.html">IEvent</a> *&#160;</td>
+          <td class="paramname"><em>event</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sends an event to the listeners. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">event</td><td>: The event to be sent. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
 <li>src/Event/<a class="el" href="_event_manager_8hpp_source.html">EventManager.hpp</a></li>
 <li>src/Event/EventManager.cpp</li>
 </ul>

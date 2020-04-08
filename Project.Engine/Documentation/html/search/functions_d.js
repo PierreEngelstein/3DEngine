@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['sendevent',['SendEvent',['../class_event_1_1_event_manager.html#a671714d009002969cecedc91e07618ed',1,'Event::EventManager']]],
   ['setcallback',['SetCallback',['../class_common_1_1_i_window.html#a52274c7c0720bd1726b80f50fb97df6a',1,'Common::IWindow::SetCallback()'],['../class_core_1_1_g_l_window.html#ac207cc1f05a1c687bbebfffda32c82e1',1,'Core::GLWindow::SetCallback()']]],
   ['setmask',['SetMask',['../class_e_c_s_1_1_i_system.html#a535a5cb963033bb332ea5601c741da6f',1,'ECS::ISystem']]],
   ['setviewport',['SetViewport',['../class_common_1_1_i_renderer.html#a0482479ffc2994f854a261266d46214d',1,'Common::IRenderer::SetViewport()'],['../class_graphics_1_1_g_l_renderer.html#aabf18e7de582f601f50f56c74266b491',1,'Graphics::GLRenderer::SetViewport()']]],

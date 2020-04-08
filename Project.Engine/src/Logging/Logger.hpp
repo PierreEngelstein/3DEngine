@@ -1,6 +1,7 @@
 #pragma once
 #define STR(a) #a
 #include <cstring>
+#include <cassert>
 
 #define __FILENAME__ (strrchr(__FILE__, '/') ? strrchr(__FILE__, '/') + 1 : __FILE__)
 
@@ -28,5 +29,9 @@ namespace Logging
     #define LOG(Category, Verbosity, Message, ...)\
     {\
         LogInternal(__FILENAME__, __LINE__, STR(Category), Verbosity, Message, ##__VA_ARGS__);\
+        if(Verbosity == Logging::Fatal)\
+        {\
+            abort();\
+        }\
     }
 }

@@ -115,8 +115,6 @@ namespace Graphics
         glClearColor(0.17578125f, 0.17578125f, 0.17578125f, 0.0f);
         glViewport(0, 0, m_win->Width(), m_win->Height());
 		
-		std::cout << "w=" << m_win->Width() << "\n";
-		std::cout << "h=" << m_win->Height() << "\n";
         Graphics::GraphicsSystem *graphics = ecsengine.GetSystemManager().GetSystem<Graphics::GraphicsSystem>();
 		if(graphics == nullptr) return;
 

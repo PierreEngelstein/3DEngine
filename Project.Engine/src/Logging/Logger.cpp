@@ -59,6 +59,7 @@ void PrintMessage(int val, std::string message)
     switch(val)
     {
         case Logging::Error : // Error
+        case Logging::Fatal:
             printf("\033[0;31m");
             break;
         case Logging::Warning: // Warning

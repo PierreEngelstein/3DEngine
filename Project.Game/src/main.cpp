@@ -2,6 +2,7 @@
 #include <Core/GameEngine.hpp>
 #include <Core/ScriptingSystem.hpp>
 #include <Core/TransformComponent.hpp>
+#include <Core/InputSystem.hpp>
 #include <EntityComponentSystem/ECSEngine.hpp>
 #include <EntityComponentSystem/IEntity.hpp>
 #include <Physics/PhysicsSystem.hpp>
@@ -15,6 +16,7 @@
 #include <iostream>
 #include <string>
 #include "Cube.hpp"
+#include <Logging/Logger.hpp>
 
 EntityID camera;
 
@@ -34,6 +36,10 @@ int main()
         Graphics::GraphicsSystem *graphics = ecsengine.GetSystemManager().GetSystem<Graphics::GraphicsSystem>();
         assert(graphics != nullptr);
 
+        ecsengine.GetSystemManager().AddSystem<Core::InputSystem>(window);
+        Core::InputSystem* input = ecsengine.GetSystemManager().GetSystem<Core::InputSystem>();
+        assert(input != nullptr);
+
         engine->Init();
 
         Cube my_cube( true, glm::vec3(0.0f, 0.0f, 0.0f));
@@ -52,9 +58,15 @@ int main()
         camera = ecsengine.GetEntityManager().CreateEntity<ECS::IEntity>();
         ecsengine.GetComponentManager().AddComponent<Core::TransformComponent>(camera);
         auto tr = ecsengine.GetComponentManager().GetComponent<Core::TransformComponent>(camera);
-        tr->m_position = glm::vec3(0.0f, 0.0f, 0.0f);
+        tr->m_position = glm::vec3(0.0f, 1.0f, 0.0f);
         tr->m_rotation = glm::vec3(0.0f, 0.0f, 0.0f);
 
+        input->Subscribe("test", camera, [&](EntityID id)
+        {
+                tr->m_position.y -= 0.01f;
+        });
+
+        ecsengine.GetSystemManager().AddDependency<Core::InputSystem, Physics::PhysicsSystem>();
         ecsengine.GetSystemManager().AddDependency<Physics::PhysicsSystem, Core::ScriptingSystem>();
         ecsengine.GetSystemManager().AddDependency<Core::ScriptingSystem, Graphics::GraphicsSystem>();
         ecsengine.GetSystemManager().ProcessOrder();

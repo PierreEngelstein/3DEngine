@@ -32,4 +32,6 @@ mkdir -p $build_dir && cd $build_dir/
 echo "cmake $source_dir"
 cmake $source_dir
 make -j10
+cd $source_dir/bin
+./game
 cd $source_dir

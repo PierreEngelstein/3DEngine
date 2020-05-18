@@ -31,11 +31,10 @@ namespace Core
 
                 glfwSetWindowSizeCallback(window, window_size_callback);
                 glfwSetDropCallback(window, drop_callback);
-                glfwSetInputMode(window, GLFW_STICKY_MOUSE_BUTTONS, GLFW_TRUE);
 
                 glfwMakeContextCurrent(window);
                 glfwShowWindow(window);
-                glfwSwapInterval(1);
+                glfwSwapInterval(0);
 
                 LOG(GLWindow, Logging::Info, "Initialized window using %s\n", glfwGetVersionString());
         }
@@ -134,5 +133,13 @@ namespace Core
                         default:
                                 break;
                 }
+        }
+
+        void GLWindow::ShowCursor() {
+            glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+        }
+
+        void GLWindow::HideCursor() {
+            glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
         }
 }

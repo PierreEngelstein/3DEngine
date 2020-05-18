@@ -3,6 +3,7 @@
 #include <Graphics/MeshComponent.hpp>
 #include <Graphics/MaterialComponent.hpp>
 #include <Core/TransformComponent.hpp>
+#include <Core/CameraComponent.hpp>
 #include <Common/IWindow.hpp>
 #include "GL/glew.h"
 #include "glm/gtc/matrix_transform.hpp"
@@ -118,16 +119,11 @@ namespace Graphics
         Graphics::GraphicsSystem *graphics = ecsengine.GetSystemManager().GetSystem<Graphics::GraphicsSystem>();
 		if(graphics == nullptr) return;
 
-		auto tr = ecsengine.GetComponentManager().GetComponent<Core::TransformComponent>(GetCameraID());
+		auto tr = ecsengine.GetComponentManager().GetComponent<Core::CameraComponent>(GetCameraID());
 
 		glm::mat4 view = glm::mat4(1.0f);
-
-		view = glm::rotate(view, tr->m_rotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
-		view = glm::rotate(view, tr->m_rotation.y, glm::vec3(0.0f, 1.0f, 0.0f));
-		view = glm::rotate(view, tr->m_rotation.z, glm::vec3(0.0f, 0.0f, 1.0f));
-		view = glm::translate(view, tr->m_position);
-
-		glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)m_win->Width()/(float)m_win->Height(), 0.1f, 100.0f);
+        view = glm::lookAt(tr->Position, tr->Position + tr->Front(), tr->UpVector);
+		glm::mat4 projection = glm::perspective(glm::radians(tr->FieldOfView), (float)m_win->Width()/(float)m_win->Height(), tr->NearPlane, tr->FarPlane);
 
         ecsengine.GetEntityManager().Foreach([&](EntityID id)
         {
@@ -185,9 +181,9 @@ namespace Graphics
 
         glm::mat4 model = glm::identity<glm::mat4>();
         model = glm::translate(model, transform->m_position);
-        model = glm::rotate(model, transform->m_rotation.z, glm::vec3(1.0f, 0.0f, 0.0f));
-        model = glm::rotate(model, transform->m_rotation.x, glm::vec3(0.0f, 1.0f, 0.0f));
-        model = glm::rotate(model, transform->m_rotation.y, glm::vec3(0.0f, 0.0f, 1.0f));
+        model = glm::rotate(model, transform->m_rotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
+        model = glm::rotate(model, transform->m_rotation.y, glm::vec3(0.0f, 1.0f, 0.0f));
+        model = glm::rotate(model, transform->m_rotation.z, glm::vec3(0.0f, 0.0f, 1.0f));
 
         material->m_shader->AssignUniform("texture_sampler", 0);
         material->m_shader->AssignUniform("model", model);

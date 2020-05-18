@@ -22,8 +22,26 @@ namespace Core
             virtual void Run() override;
             virtual void LastRun() override;
 
+            bool KeyPressed(const std::string& name);
+            bool KeyReleased(const std::string& name);
+
+            bool GetAxis(const std::string& name);
+
+            static double DeltaX();
+            static double DeltaY();
+
+            void HideCursor();
+            void ShowCursor();
+
+            bool CursorState() const;
+
         private:
             std::map<std::string, std::map<EntityID, std::function<void(EntityID id)>>> m_map;
             Common::IWindow* m_win;
+            bool hidden;
+            static double mousePosX, mousePosY;
+            static double mouseDeltaX, mouseDeltaY;
+            static bool startFrame, doMouseInput;
+            static void mouse_pos_callback(class GLFWwindow* win, double xPos, double yPos);
     };
 }

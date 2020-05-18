@@ -93,5 +93,8 @@ namespace Common
 			 * @param callback 
 			 */
 			virtual void SetCallback(CallbackType type, void *callback) = 0;
+
+			virtual void ShowCursor() = 0;
+			virtual void HideCursor() = 0;
 	};
 }

@@ -36,6 +36,8 @@ namespace Core
                         bool MouseReleased(int key) const override;
 
                         void SetCallback(CallbackType type, void *callback) override;
+                        void ShowCursor() override;
+                        void HideCursor() override;
                 private:
                         int width, height;
                         std::string name;

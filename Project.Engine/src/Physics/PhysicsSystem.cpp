@@ -115,7 +115,7 @@ namespace Physics
 
         physx::PxMaterial *mMaterial = m_physics->createMaterial(staticFriction, dynamicFriction, restitution);
         physx::PxShape *shape = m_physics->createShape(physx::PxBoxGeometry(dimensions), *mMaterial);
-        physx::PxTransform m_transform(physx::PxVec3(transform->m_position.x, transform->m_position.y, transform->m_position.z));
+        physx::PxTransform m_transform(physx::PxVec3(transform->m_position.x, transform->m_position.z, transform->m_position.y));
 
         if(isStatic)
         {

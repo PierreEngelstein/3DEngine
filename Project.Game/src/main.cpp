@@ -18,17 +18,8 @@
 #include <iostream>
 #include <string>
 #include "Cube.hpp"
+#include "Camera.h"
 #include <Logging/Logger.hpp>
-
-EntityID camera;
-
-EntityID GetCameraID()
-{
-        return camera;
-}
-
-float yaw = 0.0f;
-float pitch = 0.0f;
 
 int main()
 {
@@ -65,58 +56,9 @@ int main()
         scripting->AddSystem(cube1.m_id, [&cube1](EntityID id)
         {
                 Core::TransformComponent* transf = ecsengine.GetComponentManager().GetComponent<Core::TransformComponent>(id);
-//                 LOG(Cube1, Logging::Info, "cube1.transf=[%5.2f, %5.2f, %5.2f]\n", transf->m_position.x, transf->m_position.y, transf->m_position.z)
-        });
-        
-        // Create the camera object
-        camera = ecsengine.GetEntityManager().CreateEntity<ECS::IEntity>();
-        ecsengine.GetComponentManager().AddComponent<Core::CameraComponent>(camera);
-        auto tr = ecsengine.GetComponentManager().GetComponent<Core::CameraComponent>(camera);
-        tr->Position = glm::vec3(0, 1, 0);
-        tr->yaw = -90;
-        tr->pitch = 0;
-        tr->UpVector = glm::vec3(0, 0, 1);
-        tr->NearPlane = 0.1f; tr->FarPlane = 100.0f; tr->FieldOfView = 45.0f;
-        scripting->AddSystem(camera, [&](EntityID id)
-        {
-            if(tr->yaw > 360) tr->yaw = 0.0f;
-        });
-        LOG(Main, Logging::Info, "camera.position.x = %5.2f\n", tr->Position.x)
-        input->Subscribe("escape", camera, [&](EntityID id)
-        {
-            if(input->CursorState()) input->ShowCursor();
-            else input->HideCursor();
-        });
-        input->Subscribe("forward", camera, [&](EntityID id)
-        {
-            tr->Position += 0.0005f * tr->Front();
-        });
-        input->Subscribe("backward", camera, [&](EntityID id)
-        {
-            tr->Position -= 0.0005f * tr->Front();
-        });
-        input->Subscribe("left", camera, [&](EntityID id)
-        {
-            tr->Position -= glm::normalize(glm::cross(tr->Front(), tr->UpVector)) * 0.0005f;
-        });
-        input->Subscribe("right", camera, [&](EntityID id)
-        {
-            tr->Position += glm::normalize(glm::cross(tr->Front(), tr->UpVector)) * 0.0005f;
-        });
-        input->Subscribe("mousemove", camera, [&](EntityID id)
-        {
-            tr->yaw -= input->DeltaX() * 0.08f;
-            tr->pitch -= input->DeltaY() * 0.08f;
-//            tr->Position += glm::normalize(glm::cross(tr->Front(), tr->UpVector)) * 0.05f;
         });
 
-
-        input->Subscribe("test", camera, [&](EntityID id)
-        {
-            tr->yaw += 0.5f;
-            if(tr->pitch > 80.0f) tr->pitch = 80.0f;
-            if(tr->pitch < -80.0f) tr->pitch = 80.0f;
-        });
+        Camera cam(glm::vec3(0, 1, 0), -90, 0, 120.0f);
 
         ecsengine.GetSystemManager().AddDependency<Core::InputSystem, Physics::PhysicsSystem>();
         ecsengine.GetSystemManager().AddDependency<Physics::PhysicsSystem, Core::ScriptingSystem>();

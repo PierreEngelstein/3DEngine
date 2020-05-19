@@ -11,7 +11,8 @@ namespace Core
     InputSystem::InputSystem(Common::IWindow* win) : m_win(win), hidden(true)
     {
         m_win->SetCallback(CALLBACK_CURSOR, reinterpret_cast<void*>(mouse_pos_callback));
-        m_win->HideCursor();
+        if(hidden)
+            m_win->HideCursor();
     }
 
     void InputSystem::Subscribe(const std::string& input, EntityID id, const std::function<void(EntityID id)>& fct)
@@ -63,18 +64,11 @@ namespace Core
             mousePosY = yPos;
             startFrame = false;
         }
-
-//        LOG(Input, Logging::Info, "prev x = %5.2f, prev y = %5.2f\n", mousePosX, mousePosY);
-//        LOG(Input, Logging::Info, "curr x = %5.2f, prev y = %5.2f\n", xPos, yPos);
-
         mouseDeltaX = xPos - mousePosX;
         mouseDeltaY = yPos - mousePosY;
-
-        doMouseInput = true;
-
-//        LOG(Input, Logging::Info, "delta x = %5.2f, delta y = %5.2f\n", mouseDeltaX, mouseDeltaY)
         mousePosX = xPos;
         mousePosY = yPos;
+        doMouseInput = true;
 
     }
 

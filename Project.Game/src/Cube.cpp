@@ -14,6 +14,7 @@
 #include <EntityComponentSystem/IEntity.hpp>
 #include <Core/TransformComponent.hpp>
 #include <Core/ScriptingSystem.hpp>
+#include <Logging/Logger.hpp>
 
 #include <Physics/PhysicsSystem.hpp>
 
@@ -24,6 +25,7 @@ using namespace physx;
 Cube::Cube(bool isStatic, glm::vec3 pos)
 {
 	m_id = ecsengine.GetEntityManager().CreateEntity<ECS::IEntity>();
+	LOG(Cube, Logging::Info, "Cube has id %d\n", m_id)
 	ecsengine.GetComponentManager().AddComponent<Graphics::MaterialComponent>(m_id);
 	ecsengine.GetComponentManager().AddComponent<Graphics::Mesh3DComponent>(m_id);
 	ecsengine.GetComponentManager().AddComponent<Core::TransformComponent>(m_id);

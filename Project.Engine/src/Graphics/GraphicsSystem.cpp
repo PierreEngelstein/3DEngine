@@ -6,6 +6,7 @@
 #include <Core/CameraComponent.hpp>
 #include <Common/IWindow.hpp>
 #include "GL/glew.h"
+#include <Logging/Logger.hpp>
 #include "glm/gtc/matrix_transform.hpp"
 #include "glm/gtc/type_ptr.hpp"
 
@@ -87,7 +88,7 @@ std::vector<unsigned int> Graphics::GraphicsSystem::indicesSquare =
 };
 namespace Graphics
 {
-	GraphicsSystem::GraphicsSystem(Common::IWindow* win) : m_win(win)
+	GraphicsSystem::GraphicsSystem(Common::IWindow* win) : m_win(win), cameraId(-1)
 	{
 		glEnable(GL_DEPTH_TEST);
         glEnable(GL_BLEND);
@@ -107,7 +108,21 @@ namespace Graphics
 
     void GraphicsSystem::FirstRun()
     {
-
+        Core::CameraComponent *cam = nullptr;
+        // Search for a camera. If no camera is set up, exit. (no rendering possible)
+        ecsengine.GetEntityManager().Foreach([&](EntityID id){
+            cam = ecsengine.GetComponentManager().GetComponent<Core::CameraComponent>(id);
+            if(cam != nullptr && cameraId == -1)
+            {
+                cameraId = id;
+                LOG(GraphicsSystem, Logging::Info, "Found camera!\n")
+            }
+        });
+        if(cameraId == -1)
+        {
+            LOG(GraphicsSystem, Logging::Error, "No camera found !\n");
+            exit(-1);
+        }
     }
 
     void GraphicsSystem::Run()
@@ -119,11 +134,13 @@ namespace Graphics
         Graphics::GraphicsSystem *graphics = ecsengine.GetSystemManager().GetSystem<Graphics::GraphicsSystem>();
 		if(graphics == nullptr) return;
 
-		auto tr = ecsengine.GetComponentManager().GetComponent<Core::CameraComponent>(GetCameraID());
+		auto camera = ecsengine.GetComponentManager().GetComponent<Core::CameraComponent>(cameraId);
+		assert(camera != nullptr);
+		LOG(Graphics, Logging::Info, "camera pos %5.2f, %5.2f, %5.2f\n", camera->Position.x, camera->Position.y, camera->Position.z)
 
 		glm::mat4 view = glm::mat4(1.0f);
-        view = glm::lookAt(tr->Position, tr->Position + tr->Front(), tr->UpVector);
-		glm::mat4 projection = glm::perspective(glm::radians(tr->FieldOfView), (float)m_win->Width()/(float)m_win->Height(), tr->NearPlane, tr->FarPlane);
+        view = glm::lookAt(camera->Position, camera->Position + camera->Front(), camera->UpVector);
+		glm::mat4 projection = glm::perspective(glm::radians(camera->FieldOfView), (float)m_win->Width()/(float)m_win->Height(), camera->NearPlane, camera->FarPlane);
 
         ecsengine.GetEntityManager().Foreach([&](EntityID id)
         {
@@ -164,7 +181,7 @@ namespace Graphics
         // Build the index vbo
         glGenBuffers(1, &component->m_indexBuffer);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, component->m_indexBuffer);
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, component->m_triangles.size() * sizeof(glm::vec2), &component->m_triangles[0], GL_STATIC_DRAW);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, component->m_triangles.size() * sizeof(glm::vec2), &(component->m_triangles[0]), GL_STATIC_DRAW);
         glBindVertexArray(0);
     }
 

@@ -35,5 +35,6 @@ namespace Graphics
             static std::vector<glm::vec2> textCoordSquare;
             static std::vector<unsigned int> indicesSquare;
             Common::IWindow *m_win;
+            EntityID cameraId;
     };
 }

@@ -2,6 +2,7 @@
 #include <Physics/RigidBodyComponent.hpp>
 #include <EntityComponentSystem/ECSEngine.hpp>
 #include <Core/TransformComponent.hpp>
+#include <Logging/Logger.hpp>
 #include <iostream>
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
@@ -137,6 +138,7 @@ namespace Physics
     {
         RigidBodyComponent* rb = ecsengine.GetComponentManager().GetComponent<RigidBodyComponent>(id);
         if(rb == nullptr) return;
+        if(rb->m_actor == nullptr) return;
 
         Core::TransformComponent* transform = ecsengine.GetComponentManager().GetComponent<Core::TransformComponent>(id);
         if(transform == nullptr) return;

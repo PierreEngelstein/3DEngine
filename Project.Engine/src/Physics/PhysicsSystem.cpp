@@ -3,9 +3,6 @@
 #include <EntityComponentSystem/ECSEngine.hpp>
 #include <Core/TransformComponent.hpp>
 #include <Logging/Logger.hpp>
-#include <iostream>
-#include "glm/glm.hpp"
-#include "glm/gtc/matrix_transform.hpp"
 #include "glm/gtc/type_ptr.hpp"
 
 #define NDEBUG
@@ -15,7 +12,7 @@ namespace Physics
 {
     PhysicsSystem::PhysicsSystem()
     {
-        std::cout << "New physics system !\n";
+        LOG_INFO("Initializing physics system ...\n")
 
         static physx::PxDefaultAllocator gDefaultAllocator;
         static physx::PxDefaultErrorCallback gDefaultErrorCallback;
@@ -23,25 +20,27 @@ namespace Physics
         m_foundation = PxCreateFoundation(PX_PHYSICS_VERSION, gDefaultAllocator, gDefaultErrorCallback);
         if(!m_foundation)
         {
-            std::cerr << "PxFoundation creation failed !\n";
+            LOG_ERROR("PxFoundation creation failed !\n")
             return;
         }
+        LOG_DEBUG("Created PxFoundation\n")
 
         m_pvd = physx::PxCreatePvd(*m_foundation);
         m_transport = physx::PxDefaultPvdSocketTransportCreate("127.0.0.1", 5425, 10);
         m_pvd->connect(*m_transport, physx::PxPvdInstrumentationFlag::eALL);
-        
+        LOG_DEBUG("Created and connected PxPvdTransport using 127.0.0.1:5425\n")
         m_physics = PxCreatePhysics(PX_PHYSICS_VERSION, *m_foundation, physx::PxTolerancesScale(), true, m_pvd);
         if(!m_physics)
         {
-            std::cerr << "PxCreatePhysics failed !\n";
+            LOG_ERROR("PxCreatePhysics Failed !\n")
             return;
         }
         if(!PxInitExtensions(*m_physics, m_pvd))
         {
-            std::cerr << "PxInitExtensions failed !\n";
+            LOG_ERROR("PxInitExtensions failed !\n")
             return;
         }
+        LOG_DEBUG("Created PxPhysics\n")
 
         // Create a physx scene and assign a correct gravity
         physx::PxSceneDesc mSceneDesc(m_physics->getTolerancesScale());
@@ -50,20 +49,22 @@ namespace Physics
         m_cpudispatcher = physx::PxDefaultCpuDispatcherCreate(2);
         if(!m_cpudispatcher)
         {
-            std::cerr << "Failed to create cpu dispatcher !\n";
+            LOG_ERROR("Failed to create cpu dispatcher !\n")
             return;
         }
         mSceneDesc.cpuDispatcher = m_cpudispatcher;
         m_scene = m_physics->createScene(mSceneDesc);
         if(!m_scene)
         {
-            std::cerr << "Failed to create scene !\n";
+            LOG_ERROR("Failed to create scene !\n")
             return;
         }
+        LOG_DEBUG("Created PxScene\n")
+        LOG_INFO("Initialized !\n")
     }
     PhysicsSystem::~PhysicsSystem()
     {
-        std::cout << "Goodbye physics\n";
+        LOG_INFO("Ended physics system.\n")
 
         m_cpudispatcher->release();
         PxCloseExtensions();

@@ -1,3 +1,4 @@
+#include <Logging/Logger.hpp>
 #include "ComponentManager.hpp"
 #include "IComponent.hpp"
 #include "Event/IEvent.hpp"
@@ -22,7 +23,7 @@ namespace ECS
         {
             for(auto &itr2 : itr.second)
             {
-                std::cout << "Deleting component !\n";
+                LOG_INFO("Deleting component.\n")
                 delete (itr2.second);
             }
             itr.second.clear();
@@ -40,7 +41,7 @@ namespace ECS
             case EVENT_ENTITY_DELETED:
             {
                 Event::EventEntityDeleted* ev = static_cast<Event::EventEntityDeleted*>(event);
-                std::cout << "Receive notification of entity to delete " << ev->GetId() << " from component manager\n";
+                LOG_DEBUG("Receive notification of entity to delete %d from component manager.\n", ev->GetId());
                 DeleteEntityFromManager(ev->GetId());
                 break;
             }

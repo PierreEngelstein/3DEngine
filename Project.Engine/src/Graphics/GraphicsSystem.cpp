@@ -90,20 +90,20 @@ namespace Graphics
 {
 	GraphicsSystem::GraphicsSystem(Common::IWindow* win) : m_win(win), cameraId(-1)
 	{
+	    LOG_INFO("Initializing graphics system ...\n")
 		glEnable(GL_DEPTH_TEST);
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
         if(glewInit() != GLEW_OK)
         {
-			std::cerr << "Failed to init glew !\n";
-			return;
+            LOG_FATAL("Failed to initialize GLEW.\n")
         }
         if(!GLEW_VERSION_3_0)
         {
-			std::cerr << "No correct glew version!\n";
-			return;
+            LOG_FATAL("No correct GLEW version.\n")
         }
+        LOG_INFO("Initialized !\n")
 	}
 
     void GraphicsSystem::FirstRun()
@@ -115,12 +115,12 @@ namespace Graphics
             if(cam != nullptr && cameraId == -1)
             {
                 cameraId = id;
-                LOG(GraphicsSystem, Logging::Info, "Found camera!\n")
+                LOG_INFO("Found camera!\n")
             }
         });
         if(cameraId == -1)
         {
-            LOG(GraphicsSystem, Logging::Error, "No camera found !\n");
+            LOG_ERROR("No camera found !\n");
             exit(-1);
         }
     }
@@ -136,7 +136,6 @@ namespace Graphics
 
 		auto camera = ecsengine.GetComponentManager().GetComponent<Core::CameraComponent>(cameraId);
 		assert(camera != nullptr);
-		LOG(Graphics, Logging::Info, "camera pos %5.2f, %5.2f, %5.2f\n", camera->Position.x, camera->Position.y, camera->Position.z)
 
 		glm::mat4 view = glm::mat4(1.0f);
         view = glm::lookAt(camera->Position, camera->Position + camera->Front(), camera->UpVector);

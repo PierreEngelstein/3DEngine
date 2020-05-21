@@ -8,7 +8,7 @@ namespace Core
 {
     double InputSystem::mousePosX=0, InputSystem::mousePosY=0, InputSystem::mouseDeltaX=0, InputSystem::mouseDeltaY=0;
     bool InputSystem::startFrame = true, InputSystem::doMouseInput = false;
-    InputSystem::InputSystem(Common::IWindow* win) : m_win(win), hidden(true)
+    InputSystem::InputSystem(Common::IWindow* win) : m_win(win), hidden(false)
     {
         m_win->SetCallback(CALLBACK_CURSOR, reinterpret_cast<void*>(mouse_pos_callback));
         if(hidden)
@@ -19,7 +19,7 @@ namespace Core
     {
         if(m_map[input].find(id) != m_map[input].end())
         {
-            LOG(InputSystem, Logging::Warning, "Entity %d already registered input %s!\n", id, input.c_str());
+            LOG_WARNING("Entity %d already registered input %s!\n", id, input.c_str());
             return;
         }
 

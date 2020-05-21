@@ -1,5 +1,6 @@
 #include "SystemManager.hpp"
 #include "ISystem.hpp"
+#include <Logging/Logger.hpp>
 
 namespace ECS
 {
@@ -32,14 +33,14 @@ namespace ECS
     {
         if(system == nullptr)
         {
-            std::cerr << "The system is null!\n";
+            LOG_ERROR("The system is null\n");
             return false;
         }
         if(system->GetMask() == SYSTEM_MASK_PERM)
             return true;
         if(system->GetMask() == SYSTEM_MASK_TEMP)
         {
-            std::cerr << "The systems are not in a directed acyclic graph!\n";
+            LOG_ERROR("The systems are not in a directed acyclic graph !\n")
             return false;
         }
 
@@ -52,7 +53,7 @@ namespace ECS
                 bool val = Visit(i->GetEnd());
                 if(!val)
                 {
-                    std::cerr << "Error while processing the graph!\n";
+                    LOG_ERROR("Errors occurred while processing the graph.\n")
                     return false;
                 }
             }
@@ -73,7 +74,7 @@ namespace ECS
             bool val = Visit(system);
             if(!val)
             {
-                std::cerr << "Error while processing the system.\n";
+                LOG_ERROR("Errors occurred while processing the system.\n")
                 return;
             }
             system = GetUnmarked();

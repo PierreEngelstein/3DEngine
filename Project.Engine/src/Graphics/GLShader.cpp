@@ -1,6 +1,7 @@
 #include <Graphics/GLShader.hpp>
 #include "GL/glew.h"
 #include <Common/Utils.h>
+#include <Logging/Logger.hpp>
 #include "glm/gtc/type_ptr.hpp"
 #include <iostream>
 
@@ -14,7 +15,7 @@ namespace Graphics
     
     GLShader::~GLShader()
     {
-        std::cout << "Cleared shader\n";
+        LOG_INFO("Cleared shader.\n");
         DeleteShader();
         m_uniforms.clear();
     }
@@ -33,7 +34,7 @@ namespace Graphics
                 shader_type = GL_FRAGMENT_SHADER;
                 break;
             default:
-                std::cerr << "Wrong shader type !\n";
+                LOG_ERROR("Wrong shader type !\n")
                 return false;
         }
 
@@ -41,7 +42,7 @@ namespace Graphics
         std::string shader_text;
         if(!LoadFile(std::string(path), &shader_text))
         {
-            std::cerr << "Failed to load shader from" << path << "\n";
+            LOG_ERROR("Failed to load shader from %s\n", path)
             return false;
         }
         const char *shader_str = shader_text.c_str();
@@ -55,7 +56,7 @@ namespace Graphics
             glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &maxLength);
             std::vector<GLchar> errorLog(maxLength);
             glGetShaderInfoLog(shader, maxLength, &maxLength, &errorLog[0]);
-            std::cerr << "Failed to compile shader : " << errorLog.data() << "\n";
+            LOG_ERROR("Failed to compile shader : %s\n", errorLog.data())
             return false;
         }
 
@@ -67,7 +68,7 @@ namespace Graphics
     {
         if(m_compiled_programs.size() == 0)
         {
-            std::cerr << "Failed to generate shader program, no shaders found !\n";
+            LOG_ERROR("Failed to generate shader program, no shader found.\n")
             return false;
         }
         m_program = glCreateProgram();
@@ -84,7 +85,7 @@ namespace Graphics
             glGetProgramiv(m_program, GL_INFO_LOG_LENGTH, &maxLength);
             std::vector<GLchar> errorLog(maxLength);
             glGetProgramInfoLog(m_program, maxLength, &maxLength, &errorLog[0]);
-            std::cerr << "Failed to compile program : " << errorLog.data() << "\n";
+            LOG_ERROR("Failed to compile program : %s\n", errorLog.data())
             return false;
         }
 
@@ -97,7 +98,7 @@ namespace Graphics
             glGetProgramiv(m_program, GL_INFO_LOG_LENGTH, &maxLength);
             std::vector<GLchar> errorLog(maxLength);
             glGetProgramInfoLog(m_program, maxLength, &maxLength, &errorLog[0]);
-            std::cerr << "Failed to validate program : " << errorLog.data() << "\n";
+            LOG_ERROR("Failed to validate program : %s\n", errorLog.data())
             return false;
         }
 
@@ -119,7 +120,7 @@ namespace Graphics
             m_uniforms[uniform] = glGetUniformLocation(m_program, uniform.c_str());
             if(m_uniforms[uniform] < 0)
             {
-                std::cerr << "Failed to bind uniform " << uniform << "\n";
+                LOG_ERROR("Failed to bind uniform %s\n", uniform.c_str())
                 return false;
             }
         }

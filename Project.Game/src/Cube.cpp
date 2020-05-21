@@ -3,9 +3,6 @@
 #include <string>
 #include <iostream>
 #include <fstream>
-#include "glm/gtc/matrix_transform.hpp"
-#include "glm/gtc/type_ptr.hpp"
-#include "GLFW/glfw3.h"
 #include "Graphics/GLShader.hpp"
 #include <Graphics/Texture.hpp>
 #include <Graphics/MeshComponent.hpp>
@@ -18,14 +15,12 @@
 
 #include <Physics/PhysicsSystem.hpp>
 
-#include <Physics/RigidBodyComponent.hpp>
-
 using namespace physx;
 
 Cube::Cube(bool isStatic, glm::vec3 pos)
 {
 	m_id = ecsengine.GetEntityManager().CreateEntity<ECS::IEntity>();
-	LOG(Cube, Logging::Info, "Cube has id %d\n", m_id)
+	LOG_DEBUG("Cube has id %d\n", m_id)
 	ecsengine.GetComponentManager().AddComponent<Graphics::MaterialComponent>(m_id);
 	ecsengine.GetComponentManager().AddComponent<Graphics::Mesh3DComponent>(m_id);
 	ecsengine.GetComponentManager().AddComponent<Core::TransformComponent>(m_id);
@@ -40,13 +35,13 @@ Cube::Cube(bool isStatic, glm::vec3 pos)
 	material->m_shader = new Graphics::GLShader();
 	if(!material->m_shader->AddProgram("resources/vertex.shad", Common::VERTEX))
 	{
-		std::cerr << "Failed to load vertex shader.\n";
+	    LOG_ERROR("Failed to load vertex shader.\n")
 		return;
 	}
 
 	if(!material->m_shader->AddProgram("resources/frag.shad", Common::FRAGMENT))
 	{
-		std::cerr << "Failed to load vertex shader.\n";
+	    LOG_ERROR("Failed to load fragment shader.\n")
 		return;
 	}
 

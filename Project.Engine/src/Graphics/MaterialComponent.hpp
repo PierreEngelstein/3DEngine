@@ -14,6 +14,7 @@ namespace Graphics
         public:
             ~MaterialComponent()
             {
+
                 std::cout << "Cleared materialcomponent!\n";
                 delete m_shader;
                 delete m_texture;

@@ -1,2 +1,6 @@
 bin/*
 build/*
+
+.idea
+bin/
+obj/

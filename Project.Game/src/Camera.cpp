@@ -5,7 +5,7 @@
 #include <Core/CameraComponent.hpp>
 #include <Core/TransformComponent.hpp>
 #include <Core/InputSystem.hpp>
-#include <Core/ScriptingSystem.hpp>
+#include <Scripting/ScriptingSystem.hpp>
 #include <Logging/Logger.hpp>
 
 Camera::Camera(glm::vec3 position, float yaw, float pitch, float fov, bool freeCam) : m_freeCam(freeCam) {
@@ -14,7 +14,7 @@ Camera::Camera(glm::vec3 position, float yaw, float pitch, float fov, bool freeC
     ecsengine.GetComponentManager().AddComponent<Core::CameraComponent>(m_id);
     auto camera = ecsengine.GetComponentManager().GetComponent<Core::CameraComponent>(m_id);
     assert(camera != nullptr);
-    auto *scripting = ecsengine.GetSystemManager().GetSystem<Core::ScriptingSystem>();
+    auto *scripting = ecsengine.GetSystemManager().GetSystem<Scripting::ScriptingSystem>();
     assert(scripting != nullptr);
 
     camera->Position = position;

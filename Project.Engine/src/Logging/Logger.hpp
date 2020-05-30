@@ -10,11 +10,11 @@ namespace Logging
 {
     enum Verbosity
     {
-        Debug,
-        Info,
-        Warning,
-        Error,
-        Fatal,
+        Debug = 0,
+        Info = 1,
+        Warning = 2,
+        Error = 3,
+        Fatal = 4,
     };
 
     /** Gets the minimal verbosity of the logger. */
@@ -32,7 +32,9 @@ namespace Logging
     /** Tells the logger if it should log the full namespace::class::method() or just the class name. */
     void UseCompleteName(bool use);
 
-    void LogInternal(const char *file, const char *method, int line, int verbosity, const char *message, ...);
+    void LogInternal(const char *filePath, const char *method, int line, int verbosity, const char *message, ...);
+
+    void LogInternalBis(const char *memberName, int line, int verbosity, const char *message, ...);
 
 #pragma region Macros Definitions
 

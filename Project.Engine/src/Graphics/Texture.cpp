@@ -1,5 +1,5 @@
 #include "Texture.hpp"
-#include "lodepng.h"
+#include <Common/lodepng/lodepng.h>
 #include <iostream>
 #include <Logging/Logger.hpp>
 

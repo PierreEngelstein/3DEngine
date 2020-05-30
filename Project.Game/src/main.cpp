@@ -1,6 +1,6 @@
 #include <Core/GLWindow.hpp>
 #include <Core/GameEngine.hpp>
-#include <Core/ScriptingSystem.hpp>
+#include <Scripting/ScriptingSystem.hpp>
 #include <Core/TransformComponent.hpp>
 #include <Core/InputSystem.hpp>
 #include <Logging/Logger.hpp>
@@ -8,6 +8,7 @@
 #include <EntityComponentSystem/IEntity.hpp>
 #include <Physics/PhysicsSystem.hpp>
 #include <Graphics/GraphicSystem.hpp>
+#include <Core/Configuration.h>
 #include <Types.hpp>
 
 #include "glm/glm.hpp"
@@ -16,8 +17,10 @@
 #include "Cube.hpp"
 #include "Camera.h"
 
-int main()
+int main(int argc, const char **argv)
 {
+    std::string st = Core::Configuration::Get(argv).GetDotnetPath();
+    std::cout << "dotnet path = " << st << "\n";
     Logging::SetMinimalVerbosity(Logging::Debug);
     Logging::SetMaximalVerbosity(Logging::Fatal);
     Logging::UseCompleteName(true);
@@ -39,7 +42,7 @@ int main()
     // Initialize the engine
     engine->Init();
 
-    // Create som objects
+    // Create some objects
     Cube my_cube( true, glm::vec3(0.0f, 0.0f, 0.0f));
     Cube cube1( false, glm::vec3(0.0f, 0.0f, 5.0f));
     // Cube cube2( false, glm::vec3(0.0f, 0.0f, 0.0f));
@@ -49,7 +52,7 @@ int main()
     assert(phys != nullptr);
 
     // Get the scripting engine
-    Core::ScriptingSystem *scripting = ecsengine.GetSystemManager().GetSystem<Core::ScriptingSystem>();
+    Scripting::ScriptingSystem *scripting = ecsengine.GetSystemManager().GetSystem<Scripting::ScriptingSystem>();
     assert(scripting != nullptr);
     // Add a script to the cube1
     scripting->AddSystem(cube1.m_id, [&cube1](EntityID id)
@@ -57,11 +60,18 @@ int main()
         Core::TransformComponent* transf = ecsengine.GetComponentManager().GetComponent<Core::TransformComponent>(id);
     });
 
+    input->Subscribe("forward", cube1.m_id, [&](EntityID id)
+    {
+        scripting->DeleteEntityFromScripting(cube1.m_id);
+    });
+
+    scripting->AddSystem(cube1.m_id, "myscript");
+
     Camera cam(glm::vec3(0, 1, 0), -90, 0, 120.0f, false);
 
     ecsengine.GetSystemManager().AddDependency<Core::InputSystem, Physics::PhysicsSystem>();
-    ecsengine.GetSystemManager().AddDependency<Physics::PhysicsSystem, Core::ScriptingSystem>();
-    ecsengine.GetSystemManager().AddDependency<Core::ScriptingSystem, Graphics::GraphicsSystem>();
+    ecsengine.GetSystemManager().AddDependency<Physics::PhysicsSystem, Scripting::ScriptingSystem>();
+    ecsengine.GetSystemManager().AddDependency<Scripting::ScriptingSystem, Graphics::GraphicsSystem>();
     ecsengine.GetSystemManager().ProcessOrder();
 
     ecsengine.GetSystemManager().FirstRun();
@@ -75,6 +85,8 @@ int main()
 
         engine->OnFrameEnd();
     }
+
+
 
     ecsengine.GetSystemManager().LastRun();
 

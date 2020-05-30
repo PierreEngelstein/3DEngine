@@ -108,6 +108,19 @@ std::string VerbosityToString(int verbosity)
     }
 }
 
+void Logging::LogInternalBis(const char *filePath, int line, int verbosity, const char *message, ...)
+{
+    if(verbosity < minimal_verbose) return;
+    if(verbosity > maximal_verbose) return;
+
+    va_list ap;
+    va_start(ap, message);
+    std::string str = va_print_str(message, ap);
+    va_end(ap);
+    std::string finalstr = string_printf("[%s] [scripting]\t%s:%d - %s", VerbosityToString(verbosity).c_str(), filePath, line, str.c_str());
+    PrintMessage(verbosity, finalstr);
+}
+
 void Logging::LogInternal(const char *file, const char *method, int line, int verbosity, const char *message, ...)
 {
     if(verbosity < minimal_verbose) return;

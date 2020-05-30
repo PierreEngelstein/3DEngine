@@ -1,14 +1,14 @@
 #include <EntityComponentSystem/ECSEngine.hpp>
 #include <Graphics/GraphicSystem.hpp>
 #include <Physics/PhysicsSystem.hpp>
-#include <Core/ScriptingSystem.hpp>
+#include <Scripting/ScriptingSystem.hpp>
 
 namespace ECS
 {
     ECSEngine::ECSEngine()
     {
         m_system_manager.AddSystem<Physics::PhysicsSystem>();
-        m_system_manager.AddSystem<Core::ScriptingSystem>();
+        m_system_manager.AddSystem<Scripting::ScriptingSystem>();
     }
 
     ECSEngine::~ECSEngine()

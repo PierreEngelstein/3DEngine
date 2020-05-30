@@ -8,12 +8,12 @@
 
 typedef std::function<void(EntityID)> script;
 
-namespace Core
+namespace Scripting
 {
-    class ScriptComponent : public ECS::IComponent
+    class NativeScriptComponent : public ECS::IComponent
     {
         public:
-            ~ScriptComponent()
+            ~NativeScriptComponent()
             {
                 m_scripts->clear();
                 delete m_scripts;

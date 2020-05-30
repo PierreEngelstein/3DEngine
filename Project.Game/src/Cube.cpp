@@ -10,7 +10,7 @@
 #include <EntityComponentSystem/ECSEngine.hpp>
 #include <EntityComponentSystem/IEntity.hpp>
 #include <Core/TransformComponent.hpp>
-#include <Core/ScriptingSystem.hpp>
+#include <Scripting/ScriptingSystem.hpp>
 #include <Logging/Logger.hpp>
 
 #include <Physics/PhysicsSystem.hpp>

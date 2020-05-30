@@ -1,5 +1,5 @@
 #include "TextureAtlas.hpp"
-#include "lodepng.h"
+#include <Common/lodepng/lodepng.h>
 #include <Logging/Logger.hpp>
 
 namespace Graphics {

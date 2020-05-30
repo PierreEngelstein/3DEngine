@@ -28,10 +28,26 @@ case $i in
 esac
 done
 
+#rm -rf $source_dir/bin/resources
+#rm $source_dir/bin/ProjectGame.dll
+#rm $source_dir/bin/Scripting.Core.dll
+
+echo $source_dir/bin/
+
+rm -rf $source_dir/bin/
+
 mkdir -p $build_dir && cd $build_dir/
 echo "cmake $source_dir"
 cmake $source_dir
 make -j10
+
+cd $source_dir/resources/Scripting/ProjectGame/
+dotnet build
+cat myscript.cs
+
 cd $source_dir/bin
+cp $source_dir/resources/Scripting/ProjectGame/bin/Debug/netcoreapp3.1/ProjectGame.dll ProjectGame.dll
+cp $source_dir/resources/Scripting/ProjectGame/bin/Debug/netcoreapp3.1/Scripting.Core.dll Scripting.Core.dll
+rm -rf $source_dir/bin/resources/Scripting
 ./game
 cd $source_dir
